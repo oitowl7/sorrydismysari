@@ -1,0 +1,41 @@
+{
+  "name": "mine",
+  "version": "1.0.0",
+  "description": "A Clothing Organizer",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js",
+    "client": "node scripts/start-client.js",
+    "dev": "concurrently \"nodemon server\" \"yarn run client\"",
+    "start": "node server",
+    "build": "node scripts/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "installDeps": "yarn && cd client && yarn"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oitowl7/sorrydismyshari"
+  },
+  "keywords": [
+    "Shari",
+    "Organizer"
+  ],
+  "author": "Jordan Shear",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oitowl7/sorrydismyshari/issues"
+  },
+  "homepage": "https://github.com/oitowl7/sorrydismyshari",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "deps": "^0.1.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12"
+  }
+}
