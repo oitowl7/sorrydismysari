@@ -1,3 +1,3 @@
 module.exports = {
-  Garment: require("./Garment")
+  Garment: require("./garment")
 };
