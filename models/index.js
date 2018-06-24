@@ -1,3 +1,3 @@
 module.exports = {
-  default: "Nothing"
+  Garment: require("./Garment")
 };

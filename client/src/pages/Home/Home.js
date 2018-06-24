@@ -1,6 +1,6 @@
 import React from "react";
 // import { /* BrowserRouter as Router, Route, Switch, Redirect,*/ Link  } from "react-router-dom";
-import API from "../../utils/API.js";
+// import API from "../../utils/API.js";
 import Navbar from "../../components/Navbar";
 import TopImage from "../../components/TopImage";
 import { Image } from 'semantic-ui-react';

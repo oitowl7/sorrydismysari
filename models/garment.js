@@ -20,4 +20,4 @@ var UsersSchema = new Schema({
 
 var Garment = mongoose.model("Garments", UsersSchema);
 
-module.exports = Users;
+module.exports = Garment;

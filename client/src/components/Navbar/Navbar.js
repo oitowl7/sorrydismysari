@@ -1,6 +1,6 @@
 import React from 'react';
 import { /* BrowserRouter as Router, Route, Switch, Redirect*/ Link } from "react-router-dom";
-import { Menu, Dropdown, Image, Icon } from 'semantic-ui-react';
+import { Menu, Image, Icon } from 'semantic-ui-react';
 import "./Navbar.css"
 
 const Navbar = props => {

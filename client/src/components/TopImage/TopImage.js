@@ -1,8 +1,8 @@
 import React from 'react';
-import { /* BrowserRouter as Router, Route, Switch, Redirect*/ Link } from "react-router-dom";
+// import { /* BrowserRouter as Router, Route, Switch, Redirect*/ Link } from "react-router-dom";
 import { Image } from 'semantic-ui-react';
 
-const Navbar = props => {
+const TopImage = props => {
   return (
     <div id="topImage">
       <Image src="/images/topImage/main.png" style={{width: "100%"}} />
@@ -10,4 +10,4 @@ const Navbar = props => {
   );
 }
 
-export default Navbar
+export default TopImage
