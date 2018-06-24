@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Navbar/Navbar.css"],"names":[],"mappings":"AAAA,WACE,qBACA,iCAAkD,CACnD","file":"static/css/main.82fb3355.css","sourcesContent":["@font-face {\n  font-family: 'menuFont';\n  src: url('../../fonts/Calligraffitti-Regular.ttf')\n}\n\n\n// WEBPACK FOOTER //\n// ./src/components/Navbar/Navbar.css"],"sourceRoot":""}
