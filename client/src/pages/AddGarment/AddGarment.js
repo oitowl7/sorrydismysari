@@ -3,7 +3,6 @@ import React from "react";
 import API from "../../utils/API.js";
 import Navbar from "../../components/Navbar";
 import TopImage from "../../components/TopImage";
-import { Image } from 'semantic-ui-react';
 
 
 class StandardHomePage extends React.Component {
@@ -22,7 +21,7 @@ class StandardHomePage extends React.Component {
           color4={this.props.color4}
         />
         <TopImage />
-        <Image src="images/working/filler.png" style={{width: "100%"}}/>
+        <div>This is the add garment page</div>
       </div>
     )
   }
