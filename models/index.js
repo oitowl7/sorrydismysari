@@ -1,3 +1,5 @@
 module.exports = {
-  Garment: require("./garment")
+  Garment: require("./garment"),
+  User: require("./user"),
+  Household: require("./household")
 };

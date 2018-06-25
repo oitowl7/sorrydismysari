@@ -6,7 +6,7 @@ import TopImage from "../../components/TopImage";
 import { Image } from 'semantic-ui-react';
 
 
-class StandardHomePage extends React.Component {
+class Home extends React.Component {
 
   state = {
     house: null,
@@ -28,4 +28,4 @@ class StandardHomePage extends React.Component {
   }
 }
 
-export default StandardHomePage;
+export default Home;

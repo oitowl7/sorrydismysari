@@ -6,7 +6,7 @@ import TopImage from "../../components/TopImage";
 import AddGarmentForm from "../../components/AddGarmentForm";
 
 
-class StandardHomePage extends React.Component {
+class AddGarment extends React.Component {
 
   state = {
     house: null,
@@ -61,4 +61,4 @@ class StandardHomePage extends React.Component {
   }
 }
 
-export default StandardHomePage;
+export default AddGarment;
