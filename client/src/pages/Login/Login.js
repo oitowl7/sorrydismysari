@@ -1,6 +1,6 @@
 import React from "react";
 // import { /* BrowserRouter as Router, Route, Switch, Redirect,*/ Link  } from "react-router-dom";
-// import API from "../../utils/API.js";
+import API from "../../utils/API.js";
 import Navbar from "../../components/Navbar";
 import TopImage from "../../components/TopImage";
 import LoginForm from "../../components/LoginForm";
@@ -12,6 +12,30 @@ class Login extends React.Component {
   state = {
     house: null,
   };
+
+  handleFormSubmit = () => {
+    console.log("Form submit working");
+  }
+
+  handleLoginSubmit = () => {
+    console.log("Login submit working");
+    const user = {
+      username: this.state.username,
+      pin: this.state.pin
+    }
+    API.checkLogin(user).then(data => {
+      console.log(data);
+    }).catch(err => console.log(err))
+  }
+
+  handleFormChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+      });
+  };
+
+
 
   render() {
     return(
@@ -28,6 +52,9 @@ class Login extends React.Component {
           color2={this.props.color2}
           color3={this.props.color3}
           color4={this.props.color4}
+          handleFormSubmit={this.handleFormSubmit}
+          handleLoginSubmit={this.handleLoginSubmit}
+          handleFormChange={this.handleFormChange}
         />
       </div>
     )

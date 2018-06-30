@@ -10,4 +10,20 @@ router.post('/garment/create', (req, res) => {
   // res.send("we did shit here");
 })
 
+router.post('/login', (req, res) => {
+  console.log(req.body.data.username);
+  db.User.find({username: req.body.data.username})
+    .then(data => {
+      let message;
+      console.log("The next line is the user found");
+      console.log(data)
+      if (data === []) {
+        message = "User does not exist";
+      } else{
+        message = data
+      }
+      res.json(message);
+    })
+})
+
 module.exports = router;
