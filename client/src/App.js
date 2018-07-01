@@ -8,16 +8,17 @@ import Login from "./pages/Login/Login";
 class App extends React.Component {
 
   state = {
-    color1: "#F42A41",
-    color2: "#006A4D",
+    // color1: "#F42A41",
+    color1: "#6985ff",
+    color2: "#fff67e",
     color3: "#FF9933",
     color4: "#006600",
   };
 
   checkLogin = () => {
-    // document.cookie = "User= Jordan";
+    // document.cookie = "username= Jordan";
     const cookie = document.cookie;
-    let user = cookie.split("User=")[1];
+    let user = cookie.split("username=")[1];
     if (!user) {
       console.log("Not logged in");
       this.setState({loggedIn: false, loggedInCheck: true});

@@ -49,7 +49,7 @@ const LoginForm = props => {
             </Form.Field>
           </Form.Group>
 
-          <Grid columns={2} divided>
+          <Grid columns={2} divided style={{marginTop: 20}}>
             <Grid.Row>
               <Grid.Column>
                 <Header as="h3" style={{color: props.color1, marginTop: 30}}>Create New House</Header>

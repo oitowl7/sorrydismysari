@@ -10,7 +10,6 @@ import { Image } from 'semantic-ui-react';
 class Login extends React.Component {
 
   state = {
-    house: null,
   };
 
   handleFormSubmit = () => {
@@ -25,6 +24,14 @@ class Login extends React.Component {
     }
     API.checkLogin(user).then(data => {
       console.log(data);
+      if(data.data === "User does not exist" || data.data === "Incorrect Pin") {
+        this.setState({newUserError: data.data})
+      } else {
+        // this.setState({username: data.data.username, household: data.data.household})
+        document.cookie = `household= ${data.data.household}`;
+        document.cookie = `username= ${data.data.username}`;
+        window.location.href = "/";
+      }
     }).catch(err => console.log(err))
   }
 

@@ -11,16 +11,18 @@ router.post('/garment/create', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-  console.log(req.body.data.username);
-  db.User.find({username: req.body.data.username})
+  console.log("Username: " + req.body.data.username);
+  db.User.find({username: req.body.data.username.toLowerCase()})
     .then(data => {
       let message;
-      console.log("The next line is the user found");
-      console.log(data)
-      if (data === []) {
+      console.log(data);
+      if (!data[0]) {
+        console.log("if ran");
         message = "User does not exist";
+      } else if(data[0].pin != req.body.data.pin) {
+        message = "Incorrect Pin"
       } else{
-        message = data
+        message = data[0]
       }
       res.json(message);
     })
