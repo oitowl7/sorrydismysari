@@ -28,4 +28,8 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.post('/create', (req, res) => {
+  console.log(req.body.data);
+})
+
 module.exports = router;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { /* BrowserRouter as Router, Route, Switch, Redirect*/ Link } from "react-router-dom";
-import { Form, Header, Container, Button, Grid, Divider } from 'semantic-ui-react';
+import { Form, Header, Container, Button, Grid, Divider, Label } from 'semantic-ui-react';
 
 const LoginForm = props => {
   return (
@@ -14,12 +14,18 @@ const LoginForm = props => {
               <br></br>
               <label style={{color: props.color1, fontSize: 15}}>Username</label>
               <input style={{color: "white", backgroundColor: props.color1}} name="username" placeholder="Nadia" />
+                {props.loginError ?
+                  <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
+                : ""}
             </Form.Field>
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
               <label style={{color: props.color1, fontSize: 15}}>Pin</label>
               <input style={{color: "white", backgroundColor: props.color1}} name="pin" placeholder="password" />
+                {props.loginError ?
+                  <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
+                : ""}
             </Form.Field>
           </Form.Group>
           <Form.Button onClick={props.handleLoginSubmit} style={{color: "white", backgroundColor: props.color1}}>Login</Form.Button>
@@ -46,6 +52,9 @@ const LoginForm = props => {
               <br></br>
               <label style={{color: props.color1, fontSize: 15}}>Confirm Pin</label>
               <input style={{color: "white", backgroundColor: props.color1}} name="confirmPin" placeholder="password" />
+                {props.pinMatchError ?
+                  <Label basic color="red" pointing="above" >{`${props.pinMatchError}`}</Label>
+                : ""}
             </Form.Field>
           </Form.Group>
 
@@ -67,6 +76,9 @@ const LoginForm = props => {
                   <br></br>
                   <label style={{color: props.color1, fontSize: 15}}>Confirm House Pin</label>
                   <input style={{color: "white", backgroundColor: props.color1}} name="newHousePinConfirm" placeholder="password" />
+                {props.newHousePinError ?
+                  <Label basic color="red" pointing="above" >{`${props.newHousePinError}`}</Label>
+                : ""}
                 </Form.Field>
               </Grid.Column>
               <Grid.Column>

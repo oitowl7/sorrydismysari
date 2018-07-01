@@ -14,6 +14,23 @@ class Login extends React.Component {
 
   handleFormSubmit = () => {
     console.log("Form submit working");
+    if (this.state.newPin !== this.state.confirmPin) {
+      this.setState({pinMatchError: "The pins have to match"});
+    } else {
+      if(this.state.newHouseName && !this.state.existingHouseName) {
+        if(this.state.newHousePin === this.state.newHousePinConfirm){
+          const objToSend = {
+            username: this.state.newUser,
+            pin: this.state.newPin,
+            household: this.state.newHouseName,
+            pin: this.state.newPin
+          }
+          console.log("going with new house")
+        } else {
+          this.setState({newHousePinError: "These have to match"})
+        }
+      }
+    }
   }
 
   handleLoginSubmit = () => {
@@ -25,7 +42,7 @@ class Login extends React.Component {
     API.checkLogin(user).then(data => {
       console.log(data);
       if(data.data === "User does not exist" || data.data === "Incorrect Pin") {
-        this.setState({newUserError: data.data})
+        this.setState({loginError: data.data})
       } else {
         // this.setState({username: data.data.username, household: data.data.household})
         document.cookie = `household= ${data.data.household}`;
@@ -62,6 +79,9 @@ class Login extends React.Component {
           handleFormSubmit={this.handleFormSubmit}
           handleLoginSubmit={this.handleLoginSubmit}
           handleFormChange={this.handleFormChange}
+          loginError={this.state.loginError}
+          pinMatchError={this.state.pinMatchError}
+          newHousePinError={this.state.newHousePinError}
         />
       </div>
     )
