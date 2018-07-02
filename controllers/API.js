@@ -28,8 +28,14 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.post('/create', (req, res) => {
+router.post('/create/existing', (req, res) => {
   console.log(req.body.data);
+  res.json("Stuff happened back here at the existing spot");
+})
+
+router.post('/create/new', (req, res) => {
+  console.log(req.body.data);
+  res.json("stuff happened back here at the new house spot");
 })
 
 module.exports = router;

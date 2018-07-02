@@ -40,12 +40,18 @@ const LoginForm = props => {
               <br></br>
               <label style={{color: props.color1, fontSize: 15}}>Username</label>
               <input style={{color: "white", backgroundColor: props.color1}} name="newUser" placeholder="Nadia" />
+                {props.usernameError ?
+                  <Label basic color="red" pointing="above" >{`${props.usernameError}`}</Label>
+                : ""}
             </Form.Field>
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
               <label style={{color: props.color1, fontSize: 15}}>Pin</label>
               <input style={{color: "white", backgroundColor: props.color1}} name="newPin" placeholder="password" />
+                {props.pinEntryError ?
+                  <Label basic color="red" pointing="above" >{`${props.pinEntryError}`}</Label>
+                : ""}
             </Form.Field>
 
             <Form.Field  onChange={props.handleFormChange}>
@@ -66,18 +72,24 @@ const LoginForm = props => {
                   <br></br>
                   <label style={{color: props.color1, fontSize: 15}}>House Name</label>
                   <input style={{color: "white", backgroundColor: props.color1}} name="newHouseName" placeholder="Islam Household" />
+                  {props.houseNameError ?
+                    <Label basic color="red" pointing="above" >{`${props.houseNameError}`}</Label>
+                  : ""}
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
                   <label style={{color: props.color1, fontSize: 15}}>House Pin</label>
                   <input style={{color: "white", backgroundColor: props.color1}} name="newHousePin" placeholder="password" />
+                  {props.newHousePinError ?
+                    <Label basic color="red" pointing="above" >{`${props.newHousePinError}`}</Label>
+                  : ""}
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
                   <label style={{color: props.color1, fontSize: 15}}>Confirm House Pin</label>
                   <input style={{color: "white", backgroundColor: props.color1}} name="newHousePinConfirm" placeholder="password" />
-                {props.newHousePinError ?
-                  <Label basic color="red" pointing="above" >{`${props.newHousePinError}`}</Label>
+                {props.newHousePinMatchError ?
+                  <Label basic color="red" pointing="above" >{`${props.newHousePinMatchError}`}</Label>
                 : ""}
                 </Form.Field>
               </Grid.Column>
@@ -87,11 +99,17 @@ const LoginForm = props => {
                   <br></br>
                   <label style={{color: props.color1, fontSize: 15}}>House Name</label>
                   <input style={{color: "white", backgroundColor: props.color1}} name="existingHouseName" placeholder="Islam Household" />
+                {props.houseNameError ?
+                  <Label basic color="red" pointing="above" >{`${props.houseNameError}`}</Label>
+                : ""}
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
                   <label style={{color: props.color1, fontSize: 15}}>House Pin</label>
                   <input style={{color: "white", backgroundColor: props.color1}} name="existingHousePin" placeholder="password" />
+                  {props.existingHousePinError ?
+                    <Label basic color="red" pointing="above" >{`${props.existingHousePinError}`}</Label>
+                  : ""}
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>

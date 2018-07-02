@@ -13,24 +13,77 @@ class Login extends React.Component {
   };
 
   handleFormSubmit = () => {
-    console.log("Form submit working");
-    if (this.state.newPin !== this.state.confirmPin) {
-      this.setState({pinMatchError: "The pins have to match"});
-    } else {
-      if(this.state.newHouseName && !this.state.existingHouseName) {
-        if(this.state.newHousePin === this.state.newHousePinConfirm){
-          const objToSend = {
-            username: this.state.newUser,
-            pin: this.state.newPin,
-            household: this.state.newHouseName,
-            pin: this.state.newPin
-          }
-          console.log("going with new house")
-        } else {
-          this.setState({newHousePinError: "These have to match"})
+    console.log("form submit handler happened");
+    const verify = this.verification();
+
+    if (verify) {
+      return;
+    }
+    else {
+      if (!this.state.newHouseName) {
+        const objToCreate = {
+          username: this.state.newUser,
+          pin: this.state.newPin,
+          household: this.state.existingHouseName,
+          housePin: this.state.existingHousePin
         }
+        API.createUserExistingHouse(objToCreate)
+          .then(data => {
+            console.log(data);
+          }).catch(err => console.log(err))
+      } else {
+        const objToCreate = {
+          username: this.state.newUser,
+          pin: this.state.newPin,
+          household: this.state.newHouseName,
+          housePin: this.state.newHousePin
+        }
+        API.createUserNewHouse(objToCreate)
+          .then(data => {
+            console.log(data);
+          }).catch(err => console.log(err))
       }
     }
+
+  }
+
+  verification = () => {
+    let problem;
+    this.setState({pinMatchError: null, newHousePinError: null, houseNameError: null, usernameError: null, pinEntryError: null, newHousePinMatchError: null, existingHousePinError: null, });
+    if (this.state.newPin !== this.state.confirmPin) {
+      this.setState({pinMatchError: "Pins have to match"});
+      problem = true;
+    }
+    if(this.state.newHouseName && !this.state.existingHouseName && this.state.newHousePin !== this.state.newHousePinConfirm) {
+      this.setState({newHousePinMatchError: "Pins have to match"});
+      problem = true;
+    }
+    if(this.state.newHouseName && !this.state.existingHouseName && !this.state.newHousePin){
+      this.setState({newHousePinError: "Please enter a pin number"})
+      problem = true;
+    }
+    if(this.state.existingHouseName && !this.state.newHouseName && !this.state.existingHousePin) {
+      this.setState({existingHousePinError: "Please enter a pin number"})
+      problem = true;
+    }
+    if(this.state.newHouseName && this.state.existingHouseName) {
+      this.setState({houseNameError: "You can only join or create a household"});
+      problem = true;
+    }
+    if(!this.state.newUser){
+      this.setState({usernameError: "Must enter a username"});
+      problem = true;
+    }
+    if(!this.state.newPin){
+      this.setState({pinEntryError: "Please enter a new pin"});
+      problem = true;
+    }
+    if(!this.state.existingHouseName && !this.state.newHouseName){
+      this.setState({houseNameError: "Please join or create a house"});
+      problem = true;
+    }
+    return problem;
+
   }
 
   handleLoginSubmit = () => {
@@ -82,6 +135,11 @@ class Login extends React.Component {
           loginError={this.state.loginError}
           pinMatchError={this.state.pinMatchError}
           newHousePinError={this.state.newHousePinError}
+          newHousePinMatchError={this.state.newHousePinError}
+          pinEntryError={this.state.pinEntryError}
+          usernameError={this.state.usernameError}
+          houseNameError={this.state.houseNameError}
+          existingHousePinError={this.state.existingHousePinError}
         />
       </div>
     )
