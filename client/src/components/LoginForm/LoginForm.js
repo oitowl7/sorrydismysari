@@ -75,6 +75,9 @@ const LoginForm = props => {
                   {props.houseNameError ?
                     <Label basic color="red" pointing="above" >{`${props.houseNameError}`}</Label>
                   : ""}
+                  {props.newHouseError ?
+                    <Label basic color="red" pointing="above" >{`${props.newHouseError}`}</Label>
+                  : ""}
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
@@ -101,6 +104,9 @@ const LoginForm = props => {
                   <input style={{color: "white", backgroundColor: props.color1}} name="existingHouseName" placeholder="Islam Household" />
                 {props.houseNameError ?
                   <Label basic color="red" pointing="above" >{`${props.houseNameError}`}</Label>
+                : ""}
+                {props.existingHouseError ?
+                  <Label basic color="red" pointing="above" >{`${props.existingHouseError}`}</Label>
                 : ""}
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>

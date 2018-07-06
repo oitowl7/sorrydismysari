@@ -29,7 +29,7 @@ class Login extends React.Component {
         }
         API.createUserExistingHouse(objToCreate)
           .then(data => {
-            console.log(data);
+            this.handleCreateReturn(data);
           }).catch(err => console.log(err))
       } else {
         const objToCreate = {
@@ -40,16 +40,31 @@ class Login extends React.Component {
         }
         API.createUserNewHouse(objToCreate)
           .then(data => {
-            console.log(data);
+            this.handleCreateReturn(data);
           }).catch(err => console.log(err))
       }
     }
 
   }
 
+  handleCreateReturn = (data) => {
+    console.log(data);
+    if (!data.data.userMessage && !data.data.houseMessage){
+      document.cookie = `household= ${data.data.household}`;
+      document.cookie = `username= ${data.data.username}`;
+      window.location.href = "/";
+    } else {
+      if(this.state.newHouseName) {
+        this.setState({usernameError: data.data.userMessage, newHouseError: data.data.houseMessage});
+      } else {
+        this.setState({usernameError: data.data.userMessage, existingHouseError: data.data.houseMessage});
+      }
+    }
+  }
+
   verification = () => {
     let problem;
-    this.setState({pinMatchError: null, newHousePinError: null, houseNameError: null, usernameError: null, pinEntryError: null, newHousePinMatchError: null, existingHousePinError: null, });
+    this.setState({pinMatchError: null, newHousePinError: null, houseNameError: null, usernameError: null, pinEntryError: null, newHousePinMatchError: null, existingHousePinError: null, newHouseError: null, existingHouseError: null});
     if (this.state.newPin !== this.state.confirmPin) {
       this.setState({pinMatchError: "Pins have to match"});
       problem = true;
@@ -135,11 +150,13 @@ class Login extends React.Component {
           loginError={this.state.loginError}
           pinMatchError={this.state.pinMatchError}
           newHousePinError={this.state.newHousePinError}
-          newHousePinMatchError={this.state.newHousePinError}
+          newHousePinMatchError={this.state.newHousePinMatchError}
           pinEntryError={this.state.pinEntryError}
           usernameError={this.state.usernameError}
           houseNameError={this.state.houseNameError}
           existingHousePinError={this.state.existingHousePinError}
+          newHouseError={this.state.newHouseError}
+          existingHouseError={this.state.existingHouseError}
         />
       </div>
     )
