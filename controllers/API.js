@@ -107,10 +107,17 @@ router.post('/create/new', (req, res) => {
                 household: req.body.data.household
               }
               db.User.create(userToCreate)
-                .then(data => {
-                  message = data;
-                  console.log("This is the final message for new: ");
-                  res.json(message);
+                .then(data2 => {
+                  message = data2;
+                  const householdToCreate = {
+                    name: req.body.data.household,
+                    pin: req.body.data.housePin
+                  }
+                  db.Household.create(householdToCreate)
+                    .then(data3 => {
+                      console.log("This is the final message for new: ");
+                      res.json(message);
+                    }).catch(err => console.log(err));
                 }).catch(err => console.log(err));
             } else {
               //if there was a household error, it skips the create user phase
