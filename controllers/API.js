@@ -76,7 +76,7 @@ router.post('/create/existing', (req, res) => {
 })
 
 router.post('/create/new', (req, res) => {
-  //api call to find if the house exists and verify the pin. if either happens, a message is created. if not, string is left blank
+  //api call to find if the house exists. If that happens, a message is created. if not, string is left blank
   db.Household.find({name: req.body.data.household.toLowerCase()})
     .then(data => {
       let message = {
