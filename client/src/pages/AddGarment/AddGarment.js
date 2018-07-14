@@ -5,6 +5,7 @@ import API from "../../utils/API.js";
 import Navbar from "../../components/Navbar";
 import TopImage from "../../components/TopImage";
 import AddGarmentForm from "../../components/AddGarmentForm";
+import AddSariForm from "../../components/AddSariForm";
 import "./AddGarment.css"
 
 
@@ -59,7 +60,17 @@ class AddGarment extends React.Component {
           </Form>
         </Container>
         {this.state.garmentType === "Sari" ?
-          <Header as="h2">Sari!!!!</Header>
+          <div>
+            <Header as="h2">Sari!!!!</Header>
+            <AddSariForm
+              handleFormChange={this.handleFormChange}
+              handleFormSubmit={this.handleFormSubmit}
+              color1={this.props.color1}
+              color2={this.props.color2}
+              color3={this.props.color3}
+              color4={this.props.color4}
+            />
+          </div>
           : ""
         }
         {this.state.garmentType === "Salwar" ?
