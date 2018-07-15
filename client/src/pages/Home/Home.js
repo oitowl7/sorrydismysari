@@ -20,6 +20,7 @@ class Home extends React.Component {
           color2={this.props.color2}
           color3={this.props.color3}
           color4={this.props.color4}
+          color5={this.props.color5}
         />
         <TopImage />
         <Image src="images/working/filler.png" style={{width: "100%"}}/>

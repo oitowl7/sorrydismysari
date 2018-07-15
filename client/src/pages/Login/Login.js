@@ -17,9 +17,11 @@ class Login extends React.Component {
     const verify = this.verification();
 
     if (verify) {
+      //if there was a front end verification error, the api calls will not be made and the fxn just returns;
       return;
     }
     else {
+      //
       if (!this.state.newHouseName) {
         const objToCreate = {
           username: this.state.newUser,
@@ -102,16 +104,22 @@ class Login extends React.Component {
   }
 
   handleLoginSubmit = () => {
-    console.log("Login submit working");
+    this.setState({userExistError: null, loginError: null})
     const user = {
       username: this.state.username,
       pin: this.state.pin
     }
+    if(!this.state.username){
+      this.setState({userExistError: "Please enter username"});
+      return;
+    }
     API.checkLogin(user).then(data => {
       console.log(data);
-      if(data.data === "User does not exist" || data.data === "Incorrect Pin") {
+      if(data.data === "User does not exist") {
+        this.setState({userExistError: data.data})
+      } else if (data.data === "Incorrect Pin") {
         this.setState({loginError: data.data})
-      } else {
+      }else {
         // this.setState({username: data.data.username, household: data.data.household})
         document.cookie = `household= ${data.data.household}`;
         document.cookie = `username= ${data.data.username}`;
@@ -131,12 +139,13 @@ class Login extends React.Component {
 
   render() {
     return(
-      <div style={{backgroundColor: this.props.color2, height: "100%"}}>
+      <div style={{backgroundColor: this.props.color5, height: "100%"}}>
         <Navbar
           color1={this.props.color1}
           color2={this.props.color2}
           color3={this.props.color3}
           color4={this.props.color4}
+          color5={this.props.color5}
         />
         <TopImage />
         <LoginForm
@@ -144,6 +153,7 @@ class Login extends React.Component {
           color2={this.props.color2}
           color3={this.props.color3}
           color4={this.props.color4}
+          color5={this.props.color5}
           handleFormSubmit={this.handleFormSubmit}
           handleLoginSubmit={this.handleLoginSubmit}
           handleFormChange={this.handleFormChange}
@@ -157,6 +167,7 @@ class Login extends React.Component {
           existingHousePinError={this.state.existingHousePinError}
           newHouseError={this.state.newHouseError}
           existingHouseError={this.state.existingHouseError}
+          userExistError={this.state.userExistError}
         />
       </div>
     )

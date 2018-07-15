@@ -9,10 +9,11 @@ class App extends React.Component {
 
   state = {
     // color1: "#F42A41",
-    color1: "#6985ff",
-    color2: "#fff67e",
-    color3: "#FF9933",
-    color4: "#006600",
+    color1: "#082C51",
+    color2: "#328cc1",
+    color3: "#D9B310",
+    color4: "#1D2731",
+    color5: "#D6D6D6"
   };
 
   checkLogin = () => {
@@ -51,6 +52,7 @@ class App extends React.Component {
                         color2={this.state.color2}
                         color3={this.state.color3}
                         color4={this.state.color4}
+                        color5={this.state.color5}
                       />
                     )
                   }} 
@@ -63,6 +65,7 @@ class App extends React.Component {
                         color2={this.state.color2}
                         color3={this.state.color3}
                         color4={this.state.color4}
+                        color5={this.state.color5}
                       />
                     )
                   }} 
@@ -75,6 +78,7 @@ class App extends React.Component {
                       color2={this.state.color2}
                       color3={this.state.color3}
                       color4={this.state.color4}
+                      color5={this.state.color5}
                     />
                   )
                 }}
@@ -97,6 +101,7 @@ class App extends React.Component {
                         color2={this.state.color2}
                         color3={this.state.color3}
                         color4={this.state.color4}
+                        color5={this.state.color5}
                       />
                     )
                   }} 

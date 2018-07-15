@@ -11,22 +11,22 @@ const AddSariForm = props => {
           <Form.Field  onChange={props.handleFormChange}>
             <br></br>
             <label style={{color: props.color1, fontSize: 15}}>Name</label>
-            <input style={{color: "white", backgroundColor: props.color1}} name="name" placeholder="white top #14" />
+            <input style={{color: props.color5, backgroundColor: props.color2}} name="name" placeholder="white top #14" />
           </Form.Field>
           <Form.Field  onChange={props.handleFormChange}>
             <br></br>
             <label style={{color: props.color1, fontSize: 15}}>Type</label>
-            <input style={{color: "white", backgroundColor: props.color1}} name="type" placeholder="Sari" />
+            <input style={{color: props.color5, backgroundColor: props.color2}} name="type" placeholder="Sari" />
           </Form.Field>
           <Form.Field  onChange={props.handleFormChange}>
             <br></br>
             <label style={{color: props.color1, fontSize: 15}}>Primary Color</label>
-            <input style={{color: "white", backgroundColor: props.color1}} name="primaryColor" placeholder="Blue" />
+            <input style={{color: props.color5, backgroundColor: props.color2}} name="primaryColor" placeholder="Blue" />
           </Form.Field>
           <Form.Field  onChange={props.handleFormChange}>
             <br></br>
             <label style={{color: props.color1, fontSize: 15}}>Secondary Color</label>
-            <input style={{color: "white", backgroundColor: props.color1}} name="secondaryColor" placeholder="Green" />
+            <input style={{color: props.color5, backgroundColor: props.color2}} name="secondaryColor" placeholder="Green" />
           </Form.Field>
         <Form.Button onClick={props.handleFormSubmit} style={{color: "white", backgroundColor: props.color1}}>Submit</Form.Button>
 

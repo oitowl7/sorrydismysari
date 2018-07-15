@@ -7,21 +7,21 @@ const Navbar = props => {
   return (
     <div id="navbarDiv">
       {/* <Segment> */}
-        <Menu fluid style={{backgroundColor: props.color1, zIndex: 3}}>
-          <Menu.Item name='Sorry...My Sari' style={{color:props.color2, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}>
+        <Menu fluid style={{backgroundColor: props.color3, zIndex: 3}}>
+          <Menu.Item name='Sorry...My Sari' style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}>
             <span>Sari Sorter</span>
           </Menu.Item>
           <Menu.Item name="Home" >
-            <Link className="Home" to="/home" style={{color:props.color2, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="home"/>Home</Link>
+            <Link className="Home" to="/home" style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="home"/>Home</Link>
           </Menu.Item>
           <Menu.Item name="Inventory" >
-            <Link className="Inventory" to="/inventory" style={{color:props.color2, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="archive" />Inventory</Link>
+            <Link className="Inventory" to="/inventory" style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="archive" />Inventory</Link>
           </Menu.Item>
           <Menu.Item name="Add Item" >
-            <Link className="Add Item" to="/add" style={{color:props.color2, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="add" />Add Item</Link>
+            <Link className="Add Item" to="/add" style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="add" />Add Item</Link>
           </Menu.Item>
           <Menu.Item name="Change Household" >
-            <Link className="Change Household" to="/select" style={{color:props.color2, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="exchange" />Change Household</Link>
+            <Link className="Change Household" to="/select" style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="exchange" />Change Household</Link>
           </Menu.Item>
 
         </Menu>

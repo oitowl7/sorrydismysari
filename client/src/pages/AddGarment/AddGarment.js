@@ -38,7 +38,7 @@ class AddGarment extends React.Component {
 
   render() {
     return(
-      <div style={{backgroundColor: this.props.color2}}>
+      <div style={{backgroundColor: this.props.color5}}>
         <Navbar
           color1={this.props.color1}
           color2={this.props.color2}
@@ -48,7 +48,7 @@ class AddGarment extends React.Component {
         <TopImage />
         <Container>
           <Form style={{marginTop: 30}}>
-            <Form.Field label='Select Garment Type' className="garmentDropdown" name="garmentType" onChange={this.handleFormChange} control='select' style={{color: this.props.color2, backgroundColor: this.props.color1}}>
+            <Form.Field /*label='Select Garment Type'*/ className="garmentDropdown" name="garmentType" onChange={this.handleFormChange} control='select' style={{color: this.props.color5, backgroundColor: this.props.color2}}>
               <option value=''>Please Select a Garment Type</option>
               <option value='Sari'>Sari</option>
               <option value='Salwar'>Salwar Kamese</option>
@@ -61,7 +61,7 @@ class AddGarment extends React.Component {
         </Container>
         {this.state.garmentType === "Sari" ?
           <div>
-            <Header as="h2">Sari!!!!</Header>
+            {/* <Header as="h2">Sari!!!!</Header> */}
             <AddSariForm
               handleFormChange={this.handleFormChange}
               handleFormSubmit={this.handleFormSubmit}
@@ -69,6 +69,17 @@ class AddGarment extends React.Component {
               color2={this.props.color2}
               color3={this.props.color3}
               color4={this.props.color4}
+              color5={this.props.color5}
+              garmentName={this.state.garmentName}
+              owner={this.state.owner}
+              primaryColor={this.state.primaryColor}
+              secondaryColor={this.state.secondaryColor}
+              size={this.state.size}
+              fabric={this.state.fabric}
+              eventsWornAt={this.state.eventsWornAt}
+              location={this.state.location}
+              alterationComments={this.state.alterationComments}
+              otherComments={this.state.otherComments}
             />
           </div>
           : ""
