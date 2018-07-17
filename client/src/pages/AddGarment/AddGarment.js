@@ -36,6 +36,18 @@ class AddGarment extends React.Component {
     }).catch(err => console.log(err));
   }
 
+  //start color swatch functions
+  handleChangeCompletePrimary = (color) => {
+    console.log("we are hitting this");
+    this.setState({ primaryColor: color.hex });
+  };
+
+  handleChangeCompleteSecondary = (color) => {
+    console.log("we are hitting this");
+    this.setState({ secondaryColor: color.hex });
+  };
+  //end color swatch functions
+
   render() {
     return(
       <div style={{backgroundColor: this.props.color5}}>
@@ -48,7 +60,7 @@ class AddGarment extends React.Component {
         <TopImage />
         <Container>
           <Form style={{marginTop: 30}}>
-            <Form.Field /*label='Select Garment Type'*/ className="garmentDropdown" name="garmentType" onChange={this.handleFormChange} control='select' style={{color: this.props.color5, backgroundColor: this.props.color2}}>
+            <Form.Field /*label='Select Garment Type'*/ className="garmentDropdown" name="garmentType" onChange={this.handleFormChange} control='select' style={{color: this.props.color5, backgroundColor: this.props.color1}}>
               <option value=''>Please Select a Garment Type</option>
               <option value='Sari'>Sari</option>
               <option value='Salwar'>Salwar Kamese</option>
@@ -63,13 +75,16 @@ class AddGarment extends React.Component {
           <div>
             {/* <Header as="h2">Sari!!!!</Header> */}
             <AddSariForm
+              //boilerplate
               handleFormChange={this.handleFormChange}
               handleFormSubmit={this.handleFormSubmit}
+              //colors
               color1={this.props.color1}
               color2={this.props.color2}
               color3={this.props.color3}
               color4={this.props.color4}
               color5={this.props.color5}
+              //props to be saved
               garmentName={this.state.garmentName}
               owner={this.state.owner}
               primaryColor={this.state.primaryColor}
@@ -80,6 +95,9 @@ class AddGarment extends React.Component {
               location={this.state.location}
               alterationComments={this.state.alterationComments}
               otherComments={this.state.otherComments}
+              //color swatch stuff
+              handleChangeCompletePrimary={this.handleChangeCompletePrimary}
+              handleChangeCompleteSecondary={this.handleChangeCompleteSecondary}
             />
           </div>
           : ""
