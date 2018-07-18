@@ -12,7 +12,13 @@ import "./AddGarment.css"
 class AddGarment extends React.Component {
 
   state = {
-    house: null,
+    fabric: {
+      silk: false,
+      cotton: false,
+      crepe: false,
+      chiffon: false,
+      georgette: false
+    }
   };
 
   handleFormChange = event => {
@@ -22,18 +28,27 @@ class AddGarment extends React.Component {
       });
   };
 
+  handleCheckboxChange = event => {
+    const { name, value } = event.target;
+
+    const fabric = {...this.state.fabric, [value]: !this.state.fabric[value]};
+    this.setState({
+      fabric
+    });
+  };
+
   handleFormSubmit = event => {
     event.preventDefault();
     const garmentToAdd = {
       name: this.state.name,
-      type: this.state.type,
+      type: this.state.garmentType,
       primaryColor: this.state.primaryColor,
       secondaryColor: this.state.secondaryColor
     };
     console.log(garmentToAdd)
-    API.createGarment(garmentToAdd).then(data =>{
-      console.log("The Garment Has Been Added");
-    }).catch(err => console.log(err));
+    // API.createGarment(garmentToAdd).then(data =>{
+    //   console.log("The Garment Has Been Added");
+    // }).catch(err => console.log(err));
   }
 
   //start color swatch functions
@@ -60,7 +75,7 @@ class AddGarment extends React.Component {
         <TopImage />
         <Container>
           <Form style={{marginTop: 30}}>
-            <Form.Field /*label='Select Garment Type'*/ className="garmentDropdown" name="garmentType" onChange={this.handleFormChange} control='select' style={{color: this.props.color5, backgroundColor: this.props.color1}}>
+            <Form.Field /*label='Select Garment Type'*/ className="garmentDropdown" name="garmentType" onChange={this.handleFormChange} control='select' style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 250}}>
               <option value=''>Please Select a Garment Type</option>
               <option value='Sari'>Sari</option>
               <option value='Salwar'>Salwar Kamese</option>
@@ -78,6 +93,7 @@ class AddGarment extends React.Component {
               //boilerplate
               handleFormChange={this.handleFormChange}
               handleFormSubmit={this.handleFormSubmit}
+              handleCheckboxChange={this.handleCheckboxChange}
               //colors
               color1={this.props.color1}
               color2={this.props.color2}
