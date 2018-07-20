@@ -13,7 +13,7 @@ class App extends React.Component {
     color2: "#328cc1",
     color3: "#D9B310",
     color4: "#1D2731",
-    color5: "#F6F6F6"
+    color5: "#A6A6A6"
   };
 
   checkLogin = () => {

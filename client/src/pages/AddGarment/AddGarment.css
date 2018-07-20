@@ -1,5 +1,10 @@
 
 .ui.form .field label {
-  color: rgb(105, 133, 255);
+  color: #082C51;
+  font-size: 15px;
+}
+
+div.field.fabricLabel label {
+  color: #082C51;
   font-size: 15px;
 }
