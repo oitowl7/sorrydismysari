@@ -45,6 +45,7 @@ class AddGarment extends React.Component {
       primaryColor: this.state.primaryColor,
       secondaryColor: this.state.secondaryColor
     };
+    console.log("Then this one");
     console.log(garmentToAdd)
     // API.createGarment(garmentToAdd).then(data =>{
     //   console.log("The Garment Has Been Added");
@@ -105,7 +106,7 @@ class AddGarment extends React.Component {
               owner={this.state.owner}
               primaryColor={this.state.primaryColor}
               secondaryColor={this.state.secondaryColor}
-              size={this.state.size}
+              blouseSize={this.state.blouseSize}
               fabric={this.state.fabric}
               eventsWornAt={this.state.eventsWornAt}
               location={this.state.location}
