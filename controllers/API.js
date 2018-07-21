@@ -6,8 +6,7 @@ const axios = require("axios");
 
 router.post('/garment/create', (req, res) => {
   console.log(req.body)
-  db.Garment.create(req.body.data).then(data => res.json(data)).catch(err => console.log(err));
-  // res.send("we did shit here");
+  db.Garment.create(req.body.data).then(data => res.send("Complete")).catch(err => console.log(err));
 })
 
 router.post('/login', (req, res) => {

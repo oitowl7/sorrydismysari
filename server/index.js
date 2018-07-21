@@ -34,7 +34,13 @@ if (process.env.MONGODB_URI){
 // Routes
 app.use(require('../controllers'));
 
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, "client/build/index.html")));
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 // Start the server
 app.listen(PORT, function() {

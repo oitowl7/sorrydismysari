@@ -2,20 +2,16 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UsersSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  primaryColor: {
-    type: String,
-    required: true
-  },
+  garmentName: String,
+  type: String,
+  primaryColor: String,
   secondaryColor: String,
-  type: {
-    type: String,
-    required: true
-  }
-
+  fabric: Array,
+  location: String,
+  owner: String,
+  blouseSize: Number,
+  alterationComments: Array,
+  eventInformation: String
 });
 
 var Garment = mongoose.model("Garments", UsersSchema);
