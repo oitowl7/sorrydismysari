@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import Page404 from "./pages/Page404";
 import AddGarment from "./pages/AddGarment/AddGarment";
 import Login from "./pages/Login/Login";
+import Inventory from "./pages/Inventory/Inventory"
 
 class App extends React.Component {
 
@@ -74,6 +75,19 @@ class App extends React.Component {
                 render={routeProps => {
                   return(
                     <AddGarment
+                      color1={this.state.color1}
+                      color2={this.state.color2}
+                      color3={this.state.color3}
+                      color4={this.state.color4}
+                      color5={this.state.color5}
+                    />
+                  )
+                }}
+                />
+                <Route path="/inventory"
+                render={routeProps => {
+                  return(
+                    <Inventory
                       color1={this.state.color1}
                       color2={this.state.color2}
                       color3={this.state.color3}
