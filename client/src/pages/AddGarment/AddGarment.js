@@ -4,7 +4,7 @@ import { Form, Container, Header } from 'semantic-ui-react';
 import API from "../../utils/API.js";
 import Navbar from "../../components/Navbar";
 import TopImage from "../../components/TopImage";
-import AddGarmentForm from "../../components/AddGarmentForm";
+// import AddGarmentForm from "../../components/AddGarmentForm";
 import AddSariForm from "../../components/AddSariForm";
 import "./AddGarment.css"
 

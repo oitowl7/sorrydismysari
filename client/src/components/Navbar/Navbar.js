@@ -8,8 +8,8 @@ const Navbar = props => {
     <div id="navbarDiv">
       {/* <Segment> */}
         <Menu fluid style={{backgroundColor: props.color3, zIndex: 3, maxHeight: 10}}>
-          <Menu.Item name='Sorry...My Sari' style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}>
-            <span>Sari Sorter</span>
+          <Menu.Item name="Home" >
+            <Link className="Home" to="/home" style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}>Sorry...My Sari</Link>
           </Menu.Item>
           <Menu.Item name="Home" >
             <Link className="Home" to="/home" style={{color:props.color1, fontFamily:"menuFont", fontSize: 18, fontWeight: "bold"}}><Icon name="home"/>Home</Link>
