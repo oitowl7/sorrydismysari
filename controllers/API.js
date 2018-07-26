@@ -15,8 +15,8 @@ router.post('/login', (req, res) => {
       let message;
       if (!data[0]) {
         message = "User does not exist";
-      } else if(data[0].pin != req.body.data.pin) {
-        message = "Incorrect Pin"
+      } else if(data[0].password != req.body.data.password) {
+        message = "Incorrect Password"
       } else{
         message = data[0]
       }
@@ -25,7 +25,7 @@ router.post('/login', (req, res) => {
 })
 
 router.post('/create/existing', (req, res) => {
-  //api call to find if the house exists and verify the pin. if either happens, a message is created. if not, string is left blank
+  //api call to find if the house exists and verify the password. if either happens, a message is created. if not, string is left blank
   db.Household.find({name: req.body.data.household.toLowerCase()})
     .then(data => {
       let message = {
@@ -35,8 +35,8 @@ router.post('/create/existing', (req, res) => {
       if (!data[0]){
         message.houseMessage = "This house doesn't exist";
       }
-      else if (req.body.data.housePin != data[0].pin){
-        message.houseMessage = "The pin for this house is incorrect";
+      else if (req.body.data.housePassword != data[0].password){
+        message.houseMessage = "The password for this house is incorrect";
       } else {
         message.houseMessage = "";
       }
@@ -55,7 +55,7 @@ router.post('/create/existing', (req, res) => {
             if(!message.houseMessage) {
               const userToCreate = {
                 username: req.body.data.username,
-                pin: req.body.data.pin,
+                password: req.body.data.password,
                 household: req.body.data.household
               }
               db.User.create(userToCreate)
@@ -102,7 +102,7 @@ router.post('/create/new', (req, res) => {
             if(!message.houseMessage) {
               const userToCreate = {
                 username: req.body.data.username,
-                pin: req.body.data.pin,
+                password: req.body.data.password,
                 household: req.body.data.household
               }
               db.User.create(userToCreate)
@@ -110,7 +110,7 @@ router.post('/create/new', (req, res) => {
                   message = data2;
                   const householdToCreate = {
                     name: req.body.data.household,
-                    pin: req.body.data.housePin
+                    password: req.body.data.housePassword
                   }
                   db.Household.create(householdToCreate)
                     .then(data3 => {

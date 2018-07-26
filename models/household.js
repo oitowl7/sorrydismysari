@@ -7,7 +7,7 @@ var UsersSchema = new Schema({
     required: true,
     unique: true
   },
-  pin: {
+  password: {
     type: String,
     required: true
   }

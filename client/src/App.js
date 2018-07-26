@@ -1,10 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Refresh /*Redirect*/ } from "react-router-dom";
+import firebase from 'firebase';
 import Home from "./pages/Home"
 import Page404 from "./pages/Page404";
 import AddGarment from "./pages/AddGarment/AddGarment";
 import Login from "./pages/Login/Login";
 import Inventory from "./pages/Inventory/Inventory"
+import firebaseFunctions from './utils/firebase.js'
+
+
 
 class App extends React.Component {
 
@@ -18,24 +22,27 @@ class App extends React.Component {
   };
 
   checkLogin = () => {
-    // document.cookie = "username= Jordan";
-    const cookie = document.cookie;
-    let user = cookie.split("username=")[1];
-    if (!user) {
+    const user = firebaseFunctions.getUserInfo();
+    console.log(user);
+    if(!user){
       console.log("Not logged in");
       this.setState({loggedIn: false, loggedInCheck: true});
     } else {
-      user = user.split(";")[0];
-      console.log("under this");
-      console.log(user);
       this.setState({loggedIn: true, loggedInCheck: true});
-      // window.location.href = "/";
+      // window.location.href = "/";      
     }
+  }
 
+  componentDidUpdate(prevProps, prevState) {
   }
 
   componentDidMount() {
     this.checkLogin();
+  }
+
+  userLoggedInSuccessfully = () => {
+    this.setState({loggedIn: true});
+    // window.location.href = "/";
   }
 
   render() {
@@ -116,6 +123,7 @@ class App extends React.Component {
                         color3={this.state.color3}
                         color4={this.state.color4}
                         color5={this.state.color5}
+                        userLoggedInSuccessfully={this.userLoggedInSuccessfully}
                       />
                     )
                   }} 

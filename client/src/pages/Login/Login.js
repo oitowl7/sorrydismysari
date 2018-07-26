@@ -5,6 +5,8 @@ import Navbar from "../../components/Navbar";
 import TopImage from "../../components/TopImage";
 import LoginForm from "../../components/LoginForm";
 import { Image } from 'semantic-ui-react';
+import firebase from 'firebase';
+import firebaseFunctions from '../../utils/firebase.js'
 
 
 class Login extends React.Component {
@@ -12,87 +14,63 @@ class Login extends React.Component {
   state = {
   };
 
-  handleFormSubmit = () => {
-    console.log("form submit handler happened");
-    const verify = this.verification();
-
-    if (verify) {
-      //if there was a front end verification error, the api calls will not be made and the fxn just returns;
-      return;
-    }
-    else {
-      //
-      if (!this.state.newHouseName) {
-        const objToCreate = {
-          username: this.state.newUser,
-          pin: this.state.newPin,
-          household: this.state.existingHouseName,
-          housePin: this.state.existingHousePin
-        }
-        API.createUserExistingHouse(objToCreate)
-          .then(data => {
-            this.handleCreateReturn(data);
-          }).catch(err => console.log(err))
-      } else {
-        const objToCreate = {
-          username: this.state.newUser,
-          pin: this.state.newPin,
-          household: this.state.newHouseName,
-          housePin: this.state.newHousePin
-        }
-        API.createUserNewHouse(objToCreate)
-          .then(data => {
-            this.handleCreateReturn(data);
-          }).catch(err => console.log(err))
-      }
-    }
-
+  componentDidMount() {
+    console.log(firebase.auth().currentUser);
   }
 
-  handleCreateReturn = (data) => {
-    console.log(data);
-    if (!data.data.userMessage && !data.data.houseMessage){
-      document.cookie = `household= ${data.data.household}`;
-      document.cookie = `username= ${data.data.username}`;
-      window.location.href = "/";
-    } else {
-      if(this.state.newHouseName) {
-        this.setState({usernameError: data.data.userMessage, newHouseError: data.data.houseMessage});
-      } else {
-        this.setState({usernameError: data.data.userMessage, existingHouseError: data.data.houseMessage});
-      }
+  componentDidUpdate(prevProps, prevState) {
+    console.log(firebase.auth().currentUser)
+  }
+
+  handleCreateUser = event => {
+    event.preventDefault();
+
+    const verification = this.verification();
+    if (verification) {
+      return;
+    }
+
+    if (this.state.newHouseName){
+      firebaseFunctions.createNewUser(this.state.newEmail, this.state.newPassword)
+      .then(snapshot => {
+        console.log(snapshot.user);
+        this.props.userLoggedInSuccessfully();
+      }).catch(err => {
+        console.log(err);
+      })
+
     }
   }
 
   verification = () => {
     let problem;
-    this.setState({pinMatchError: null, newHousePinError: null, houseNameError: null, usernameError: null, pinEntryError: null, newHousePinMatchError: null, existingHousePinError: null, newHouseError: null, existingHouseError: null});
-    if (this.state.newPin !== this.state.confirmPin) {
-      this.setState({pinMatchError: "Pins have to match"});
+    this.setState({passwordMatchError: null, newHousePasswordError: null, houseNameError: null, usernameError: null, passwordEntryError: null, newHousePasswordMatchError: null, existingHousePasswordError: null, newHouseError: null, existingHouseError: null});
+    if (this.state.newPassword !== this.state.confirmPassword) {
+      this.setState({passwordMatchError: "Passwords have to match"});
       problem = true;
     }
-    if(this.state.newHouseName && !this.state.existingHouseName && this.state.newHousePin !== this.state.newHousePinConfirm) {
-      this.setState({newHousePinMatchError: "Pins have to match"});
+    if(this.state.newHouseName && !this.state.existingHouseName && this.state.newHousePassword !== this.state.newHousePasswordConfirm) {
+      this.setState({newHousePasswordMatchError: "Passwords have to match"});
       problem = true;
     }
-    if(this.state.newHouseName && !this.state.existingHouseName && !this.state.newHousePin){
-      this.setState({newHousePinError: "Please enter a pin number"})
+    if(this.state.newHouseName && !this.state.existingHouseName && !this.state.newHousePassword){
+      this.setState({newHousePasswordError: "Please enter a password number"})
       problem = true;
     }
-    if(this.state.existingHouseName && !this.state.newHouseName && !this.state.existingHousePin) {
-      this.setState({existingHousePinError: "Please enter a pin number"})
+    if(this.state.existingHouseName && !this.state.newHouseName && !this.state.existingHousePassword) {
+      this.setState({existingHousePasswordError: "Please enter a password number"})
       problem = true;
     }
     if(this.state.newHouseName && this.state.existingHouseName) {
       this.setState({houseNameError: "You can only join or create a household"});
       problem = true;
     }
-    if(!this.state.newUser){
+    if(!this.state.newEmail){
       this.setState({usernameError: "Must enter a username"});
       problem = true;
     }
-    if(!this.state.newPin){
-      this.setState({pinEntryError: "Please enter a new pin"});
+    if(!this.state.newPassword){
+      this.setState({passwordEntryError: "Please enter a new password"});
       problem = true;
     }
     if(!this.state.existingHouseName && !this.state.newHouseName){
@@ -103,30 +81,36 @@ class Login extends React.Component {
 
   }
 
-  handleLoginSubmit = () => {
-    this.setState({userExistError: null, loginError: null})
+  handleLoginSubmit = event => {
+    event.preventDefault();
+    this.setState({userExistError: null, loginError: null, passwordError: null})
     const user = {
       username: this.state.username,
-      pin: this.state.pin
+      password: this.state.password
     }
-    if(!this.state.username){
-      this.setState({userExistError: "Please enter username"});
+    if(!this.state.email || !this.state.email.split("@")[1] || !this.state.email.split(".")[1]){
+      if(!this.state.password || this.state.password.length < 6){
+        console.log("There was a password error");
+        this.setState({userExistError: "please enter valid email", passwordError: "Please enter a valid password"});
+      }
+      this.setState({userExistError: "Please enter valid email"});
       return;
     }
-    API.checkLogin(user).then(data => {
-      console.log(data);
-      if(data.data === "User does not exist") {
-        this.setState({userExistError: data.data})
-      } else if (data.data === "Incorrect Pin") {
-        this.setState({loginError: data.data})
-      }else {
-        // this.setState({username: data.data.username, household: data.data.household})
-        document.cookie = `household= ${data.data.household}`;
-        document.cookie = `username= ${data.data.username}`;
-        window.location.href = "/";
-      }
-    }).catch(err => console.log(err))
-  }
+
+    if(!this.state.password || this.state.password.length < 6){
+      this.setState({passwordError: "Please enter a valid password"});
+      return;
+    }
+
+      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(snapshot => {
+        console.log(snapshot);
+        this.props.userLoggedInSuccessfully();
+      }).catch(err => {
+        this.setState({userExistError: err.message})
+        console.log(err.message);
+      })
+      // window.location.href = "/";
+    }
 
   handleFormChange = event => {
     const { name, value } = event.target;
@@ -154,20 +138,21 @@ class Login extends React.Component {
           color3={this.props.color3}
           color4={this.props.color4}
           color5={this.props.color5}
-          handleFormSubmit={this.handleFormSubmit}
+          handleCreateUser={this.handleCreateUser}
           handleLoginSubmit={this.handleLoginSubmit}
           handleFormChange={this.handleFormChange}
           loginError={this.state.loginError}
-          pinMatchError={this.state.pinMatchError}
-          newHousePinError={this.state.newHousePinError}
-          newHousePinMatchError={this.state.newHousePinMatchError}
-          pinEntryError={this.state.pinEntryError}
+          passwordMatchError={this.state.passwordMatchError}
+          newHousePasswordError={this.state.newHousePasswordError}
+          newHousePasswordMatchError={this.state.newHousePasswordMatchError}
+          passwordEntryError={this.state.passwordEntryError}
           usernameError={this.state.usernameError}
           houseNameError={this.state.houseNameError}
-          existingHousePinError={this.state.existingHousePinError}
+          existingHousePasswordError={this.state.existingHousePasswordError}
           newHouseError={this.state.newHouseError}
           existingHouseError={this.state.existingHouseError}
           userExistError={this.state.userExistError}
+          passwordError={this.state.passwordError}
         />
       </div>
     )

@@ -12,8 +12,8 @@ const LoginForm = props => {
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Username</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="username" placeholder="Nadia" />
+              <label style={{color: props.color1, fontSize: 15}}>Email</label>
+              <input style={{color: props.color5, backgroundColor: props.color1}} name="email" placeholder="email@server.com" />
                 {props.loginError ?
                   <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
                 : ""}
@@ -24,10 +24,13 @@ const LoginForm = props => {
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Pin</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="pin" placeholder="password" />
+              <label style={{color: props.color1, fontSize: 15}}>Password</label>
+              <input style={{color: props.color5, backgroundColor: props.color1}} name="password" placeholder="password" />
                 {props.loginError ?
                   <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
+                : ""}
+                {props.passwordError ?
+                  <Label basic color="red" pointing="above" >{`${props.passwordError}`}</Label>
                 : ""}
             </Form.Field>
           </Form.Group>
@@ -41,8 +44,8 @@ const LoginForm = props => {
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Username</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="newUser" placeholder="Nadia" />
+              <label style={{color: props.color1, fontSize: 15}}>Email</label>
+              <input style={{color: props.color5, backgroundColor: props.color1}} name="newEmail" placeholder="email@domain.com" />
                 {props.usernameError ?
                   <Label basic color="red" pointing="above" >{`${props.usernameError}`}</Label>
                 : ""}
@@ -50,19 +53,19 @@ const LoginForm = props => {
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Pin</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="newPin" placeholder="password" />
-                {props.pinEntryError ?
-                  <Label basic color="red" pointing="above" >{`${props.pinEntryError}`}</Label>
+              <label style={{color: props.color1, fontSize: 15}}>Password</label>
+              <input style={{color: props.color5, backgroundColor: props.color1}} name="newPassword" placeholder="password" />
+                {props.passwordEntryError ?
+                  <Label basic color="red" pointing="above" >{`${props.passwordEntryError}`}</Label>
                 : ""}
             </Form.Field>
 
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Confirm Pin</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="confirmPin" placeholder="password" />
-                {props.pinMatchError ?
-                  <Label basic color="red" pointing="above" >{`${props.pinMatchError}`}</Label>
+              <label style={{color: props.color1, fontSize: 15}}>Confirm Password</label>
+              <input style={{color: props.color5, backgroundColor: props.color1}} name="confirmPassword" placeholder="password" />
+                {props.passwordMatchError ?
+                  <Label basic color="red" pointing="above" >{`${props.passwordMatchError}`}</Label>
                 : ""}
             </Form.Field>
           </Form.Group>
@@ -84,18 +87,18 @@ const LoginForm = props => {
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
-                  <label style={{color: props.color1, fontSize: 15}}>House Pin</label>
-                  <input style={{color: props.color5, backgroundColor: props.color1}} name="newHousePin" placeholder="password" />
-                  {props.newHousePinError ?
-                    <Label basic color="red" pointing="above" >{`${props.newHousePinError}`}</Label>
+                  <label style={{color: props.color1, fontSize: 15}}>House Password</label>
+                  <input style={{color: props.color5, backgroundColor: props.color1}} name="newHousePassword" placeholder="password" />
+                  {props.newHousePasswordError ?
+                    <Label basic color="red" pointing="above" >{`${props.newHousePasswordError}`}</Label>
                   : ""}
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
-                  <label style={{color: props.color1, fontSize: 15}}>Confirm House Pin</label>
-                  <input style={{color: props.color5, backgroundColor: props.color1}} name="newHousePinConfirm" placeholder="password" />
-                {props.newHousePinMatchError ?
-                  <Label basic color="red" pointing="above" >{`${props.newHousePinMatchError}`}</Label>
+                  <label style={{color: props.color1, fontSize: 15}}>Confirm House Password</label>
+                  <input style={{color: props.color5, backgroundColor: props.color1}} name="newHousePasswordConfirm" placeholder="password" />
+                {props.newHousePasswordMatchError ?
+                  <Label basic color="red" pointing="above" >{`${props.newHousePasswordMatchError}`}</Label>
                 : ""}
                 </Form.Field>
               </Grid.Column>
@@ -114,16 +117,16 @@ const LoginForm = props => {
                 </Form.Field>
                 <Form.Field  onChange={props.handleFormChange}>
                   <br></br>
-                  <label style={{color: props.color1, fontSize: 15}}>House Pin</label>
-                  <input style={{color: props.color5, backgroundColor: props.color1}} name="existingHousePin" placeholder="password" />
-                  {props.existingHousePinError ?
-                    <Label basic color="red" pointing="above" >{`${props.existingHousePinError}`}</Label>
+                  <label style={{color: props.color1, fontSize: 15}}>House Password</label>
+                  <input style={{color: props.color5, backgroundColor: props.color1}} name="existingHousePassword" placeholder="password" />
+                  {props.existingHousePasswordError ?
+                    <Label basic color="red" pointing="above" >{`${props.existingHousePasswordError}`}</Label>
                   : ""}
                 </Form.Field>
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          <Form.Button onClick={props.handleFormSubmit} style={{color: props.color5, backgroundColor: props.color1, marginTop: 20}}>Create User</Form.Button>
+          <Form.Button onClick={props.handleCreateUser} style={{color: props.color5, backgroundColor: props.color1, marginTop: 20}}>Create User</Form.Button>
         </Form>
       </Container>
     </div>    
