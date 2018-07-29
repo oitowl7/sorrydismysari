@@ -49,7 +49,7 @@ class App extends React.Component {
 
   userLoggedInSuccessfully = () => {
     this.setState({loggedIn: true});
-    // window.location.href = "/";
+    window.location.href = "/";
   }
 
   render() {
@@ -68,6 +68,7 @@ class App extends React.Component {
                         color3={this.state.color3}
                         color4={this.state.color4}
                         color5={this.state.color5}
+                        loggedIn={true}
                       />
                     )
                   }} 
@@ -81,6 +82,7 @@ class App extends React.Component {
                         color3={this.state.color3}
                         color4={this.state.color4}
                         color5={this.state.color5}
+                        loggedIn={true}
                       />
                     )
                   }} 
@@ -97,6 +99,21 @@ class App extends React.Component {
                     />
                   )
                 }}
+                />
+                <Route path="/login" 
+                  render={(routeProps) => {
+                    return (
+                      <Login
+                        color1={this.state.color1}
+                        color2={this.state.color2}
+                        color3={this.state.color3}
+                        color4={this.state.color4}
+                        color5={this.state.color5}
+                        userLoggedInSuccessfully={this.userLoggedInSuccessfully}
+                        userAlreadyLoggedIn={true}
+                      />
+                    )
+                  }} 
                 />
                 <Route path="/inventory"
                 render={routeProps => {
@@ -121,7 +138,7 @@ class App extends React.Component {
           <div>
             <Router>
               <Switch>
-                <Route path="/" 
+                <Route path="/login" 
                   render={(routeProps) => {
                     return (
                       <Login
@@ -131,6 +148,20 @@ class App extends React.Component {
                         color4={this.state.color4}
                         color5={this.state.color5}
                         userLoggedInSuccessfully={this.userLoggedInSuccessfully}
+                      />
+                    )
+                  }} 
+                />
+                <Route path="/" 
+                  render={(routeProps) => {
+                    return (
+                      <Home
+                        color1={this.state.color1}
+                        color2={this.state.color2}
+                        color3={this.state.color3}
+                        color4={this.state.color4}
+                        color5={this.state.color5}
+                        loggedIn={false}
                       />
                     )
                   }} 
