@@ -19,7 +19,6 @@ class Login extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(firebase.auth().currentUser)
   }
 
   handleCreateUser = event => {
