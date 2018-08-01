@@ -31,5 +31,18 @@ export default {
 
   createNewHousehold: function(state) {
     console.log("We are going to create this once i figure out what that user object looks like");
+  },
+
+  getTest: (state) => {
+    db.collection('test').get().then(snapshot => {
+      snapshot.docs.forEach(doc => {
+        console.log('data', doc.data());
+        console.log('doc', doc);
+      })
+    })
+  },
+
+  signUserOut: () => {
+    firebase.auth().signOut();
   }
 }

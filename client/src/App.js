@@ -7,6 +7,8 @@ import AddGarment from "./pages/AddGarment/AddGarment";
 import Login from "./pages/Login/Login";
 import Inventory from "./pages/Inventory/Inventory"
 import firebaseFunctions from './utils/firebase.js'
+import Loading from "./components/Loading/Loading";
+import Animate from "react-smooth";
 
 
 
@@ -27,9 +29,9 @@ class App extends React.Component {
     console.log(user);
     if(!user){
       console.log("Not logged in");
-      this.setState({loggedIn: false, loggedInCheck: true});
+      this.setState({loggedIn: false});
     } else {
-      this.setState({loggedIn: true, loggedInCheck: true});
+      this.setState({loggedIn: true});
       // window.location.href = "/";      
     }
   }
@@ -38,13 +40,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.checkLogin();
+    setTimeout(() => {
+      this.checkLogin();
+    }, 2000)
+    setTimeout(() => { 
+      this.setState({loggedInCheck: true})
+    }, 4000);
   }
 
   //reloads to the home page
   userLoggedInSuccessfully = () => {
     this.setState({loggedIn: true});
-    // window.location.href = "/";
+    window.location.href = "/";
   }
 
   render() {
@@ -63,6 +70,7 @@ class App extends React.Component {
                         color3={this.state.color3}
                         color4={this.state.color4}
                         color5={this.state.color5}
+                        loggedIn={true}
                       />
                     )
                   }} 
@@ -76,6 +84,7 @@ class App extends React.Component {
                         color3={this.state.color3}
                         color4={this.state.color4}
                         color5={this.state.color5}
+                        loggedIn={true}
                       />
                     )
                   }} 
@@ -92,6 +101,21 @@ class App extends React.Component {
                     />
                   )
                 }}
+                />
+                <Route path="/login" 
+                  render={(routeProps) => {
+                    return (
+                      <Login
+                        color1={this.state.color1}
+                        color2={this.state.color2}
+                        color3={this.state.color3}
+                        color4={this.state.color4}
+                        color5={this.state.color5}
+                        userLoggedInSuccessfully={this.userLoggedInSuccessfully}
+                        userAlreadyLoggedIn={true}
+                      />
+                    )
+                  }} 
                 />
                 <Route path="/inventory"
                 render={routeProps => {
@@ -116,7 +140,7 @@ class App extends React.Component {
           <div>
             <Router>
               <Switch>
-                <Route path="/" 
+                <Route path="/login" 
                   render={(routeProps) => {
                     return (
                       <Login
@@ -130,13 +154,38 @@ class App extends React.Component {
                     )
                   }} 
                 />
+                <Route path="/" 
+                  render={(routeProps) => {
+                    return (
+                      <Home
+                        color1={this.state.color1}
+                        color2={this.state.color2}
+                        color3={this.state.color3}
+                        color4={this.state.color4}
+                        color5={this.state.color5}
+                        loggedIn={false}
+                      />
+                    )
+                  }} 
+                />
               </Switch>
             </Router>
           </div>
         )
       }
     } else {
-      return("");
+      return(
+          <div style={{backgroundColor: this.state.color5, width: "100%", height: "100%"}}>
+          <Loading
+            color1={this.state.color1}
+            color2={this.state.color2}
+            color3={this.state.color3}
+            color4={this.state.color4}
+            color5={this.state.color5}
+          />
+
+          </div>
+      );
     }
     
   }
