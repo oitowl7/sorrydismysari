@@ -17,22 +17,27 @@ var auth = firebase.auth();
 var storageRef = firebase.storage().ref();
 
 export default {
+  //gets household name where household equals the value passed to the function
   getHouseholdWhere: function(household) {
     return db.collection("households").where("name", "==", household).get()
   },
 
+  //creates the user. may return error which needs to be handled by the file calling function
   createNewUser: function(email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
   },
 
+  //get current user info
   getUserInfo: function(){
     return firebase.auth().currentUser;
   },
 
+  //creates a new household
   createNewHousehold: function(state) {
     console.log("We are going to create this once i figure out what that user object looks like");
   },
 
+  // test function for collections
   getTest: (state) => {
     db.collection('test').get().then(snapshot => {
       snapshot.docs.forEach(doc => {

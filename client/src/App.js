@@ -40,9 +40,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    //runs the checkLogin() function after 2 seconds. The app needs a few seconds to mount before this request can be made and get a true response.
     setTimeout(() => {
       this.checkLogin();
     }, 2000)
+    //shows the loading screen for 4 seconds
     setTimeout(() => { 
       this.setState({loggedInCheck: true})
     }, 4000);

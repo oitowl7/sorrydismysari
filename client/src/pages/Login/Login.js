@@ -21,6 +21,7 @@ class Login extends React.Component {
   componentDidUpdate(prevProps, prevState) {
   }
 
+  //runs the front end verification. if it passes with a value of "false" it will try to create a new user.
   handleCreateUser = event => {
     event.preventDefault();
 
