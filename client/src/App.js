@@ -21,6 +21,7 @@ class App extends React.Component {
     color5: "#A6A6A6"
   };
 
+  //checks login status...if status is logged in and checked it returns the logged in router. If checked but not logged in it loads the login router
   checkLogin = () => {
     const user = firebaseFunctions.getUserInfo();
     console.log(user);
@@ -40,6 +41,7 @@ class App extends React.Component {
     this.checkLogin();
   }
 
+  //reloads to the home page
   userLoggedInSuccessfully = () => {
     this.setState({loggedIn: true});
     // window.location.href = "/";
