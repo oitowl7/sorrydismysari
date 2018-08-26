@@ -7,11 +7,14 @@ import LoginForm from "../../components/LoginForm";
 import { Image } from 'semantic-ui-react';
 import firebase from 'firebase';
 import firebaseFunctions from '../../utils/firebase.js'
+import Footer from "../../components/Footer";
 
 
 class Login extends React.Component {
 
   state = {
+    recoverEmailError: null,
+    recoverEmailSuccess: null
   };
 
   componentDidMount() {
@@ -21,26 +24,26 @@ class Login extends React.Component {
   componentDidUpdate(prevProps, prevState) {
   }
 
-  //runs the front end verification. if it passes with a value of "false" it will try to create a new user.
-  handleCreateUser = event => {
-    event.preventDefault();
+  //runs the front end verification. if it passes with a value of "false" it will try to create a new user. This will be handled by a new page
+  // handleCreateUser = event => {
+  //   event.preventDefault();
 
-    const verification = this.verification();
-    if (verification) {
-      return;
-    }
+  //   const verification = this.verification();
+  //   if (verification) {
+  //     return;
+  //   }
 
-    if (this.state.newHouseName){
-      firebaseFunctions.createNewUser(this.state.newEmail, this.state.newPassword)
-      .then(snapshot => {
-        console.log(snapshot.user);
-        this.props.userLoggedInSuccessfully();
-      }).catch(err => {
-        console.log(err);
-      })
+  //   if (this.state.newHouseName){
+  //     firebaseFunctions.createNewUser(this.state.newEmail, this.state.newPassword)
+  //     .then(snapshot => {
+  //       console.log(snapshot.user);
+  //       this.props.userLoggedInSuccessfully();
+  //     }).catch(err => {
+  //       console.log(err);
+  //     })
 
-    }
-  }
+  //   }
+  // }
 
   verification = () => {
     let problem;
@@ -119,19 +122,45 @@ class Login extends React.Component {
       });
   };
 
+  handleForgotPassword = event => {
+    event.preventDefault();
+    this.setState({recoverEmailError: null})
+    console.log('this shit happened');
+    firebase.auth().sendPasswordResetEmail(this.state.recoverEmail).then(response => {
+      this.setState({recoverEmailSuccess: true})
+    }).catch(error => {
+      console.log(error.message)
+      if(error.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
+        console.log("if");
+        this.setState({recoverEmailError: "This email doesn't exist"});
+        console.log("else if");
+      } else if (error.message == "The email address is badly formatted.") {
+        console.log("else");
+        this.setState({recoverEmailError: "Please enter a valid email address"})
+      } else {
+        this.setState({recoverEmailError: "There was an error processing this request"});
+      }
+    });
+  }
+
+  handleCreateNewUser = event => {
+    event.preventDefault();
+    console.log("Create new user page needs to be made");
+  }
+
 
 
   render() {
     return(
       <div style={{backgroundColor: this.props.color5, height: "100%"}}>
-        <Navbar
+        {/* <Navbar
           color1={this.props.color1}
           color2={this.props.color2}
           color3={this.props.color3}
           color4={this.props.color4}
           color5={this.props.color5}
         />
-        <TopImage />
+        <TopImage /> */}
         <LoginForm
           color1={this.props.color1}
           color2={this.props.color2}
@@ -153,6 +182,17 @@ class Login extends React.Component {
           existingHouseError={this.state.existingHouseError}
           userExistError={this.state.userExistError}
           passwordError={this.state.passwordError}
+          handleForgotPassword={this.handleForgotPassword}
+          recoverEmailError={this.state.recoverEmailError}
+          recoverEmailSuccess={this.state.recoverEmailSuccess}
+          handleCreateNewUser={this.handleCreateNewUser}
+        />
+        <Footer 
+          color1={this.props.color1}
+          color2={this.props.color2}
+          color3={this.props.color3}
+          color4={this.props.color4}
+          color5={this.props.color5}
         />
       </div>
     )

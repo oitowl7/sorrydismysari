@@ -49,5 +49,11 @@ export default {
 
   signUserOut: () => {
     firebase.auth().signOut();
+  },
+
+  // sends users email to reset password
+  sendNewPasswordEmail: (emailAddress) => {
+    console.log("now this shit happened")
+    auth.sendPasswordResetEmail(emailAddress);
   }
 }

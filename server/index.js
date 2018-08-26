@@ -20,7 +20,7 @@ const router = express.Router();
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 app.use(express.static("client/build"));
-
+//
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 //   useMongoClient: true

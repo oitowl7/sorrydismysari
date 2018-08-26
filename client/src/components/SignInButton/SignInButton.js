@@ -28,7 +28,7 @@ class SignInButton extends React.Component {
 
   render() {
     return(
-      <Button onClick={this.signOut} style={{color: this.props.color3, backgroundColor: this.props.color1}}>
+      <Button onClick={this.signOut} style={{color: this.props.color3, backgroundColor: this.props.color1, position: "absolute", right: "30px", top: "3px"}}>
         <Link className="login" to="/login" style={{color: this.props.color3}}>Sign In</Link>
       </Button>
     )

@@ -7,6 +7,8 @@ import { Image } from 'semantic-ui-react';
 import firebaseFunction from "../../utils/firebase.js"
 import SignOutButton from "../../components/SignOutButton/SignOutButton";
 import SignInButton from "../../components/SignInButton/SignInButton";
+import HomeInformation from "../../components/HomeInformation/HomeInformation";
+import Footer from "../../components/Footer";
 
 class Home extends React.Component {
 
@@ -21,7 +23,7 @@ class Home extends React.Component {
   render() {
     console.log(this.props)
     return(
-      <div>
+      <div style={{backgroundColor: this.props.color5}}>
         <Navbar
           color1={this.props.color1}
           color2={this.props.color2}
@@ -36,7 +38,6 @@ class Home extends React.Component {
             color3={this.props.color3}
             color4={this.props.color4}
             color5={this.props.color5}
-            style={{position: "fixed", right: 20, top: 3, }}
           />
         :
           <SignInButton
@@ -45,11 +46,23 @@ class Home extends React.Component {
             color3={this.props.color3}
             color4={this.props.color4}
             color5={this.props.color5}
-            style={{position: "fixed", right: 20, top: 3, }}
           />
         }
         <TopImage />
-        <Image src="images/working/filler.png" style={{width: "100%"}}/>
+        <HomeInformation 
+          color1={this.props.color1}
+          color2={this.props.color2}
+          color3={this.props.color3}
+          color4={this.props.color4}
+          color5={this.props.color5}
+        />
+        <Footer 
+          color1={this.props.color1}
+          color2={this.props.color2}
+          color3={this.props.color3}
+          color4={this.props.color4}
+          color5={this.props.color5}
+        />
       </div>
     )
   }

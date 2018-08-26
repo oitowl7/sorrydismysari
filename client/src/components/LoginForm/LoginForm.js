@@ -1,45 +1,86 @@
 import React from 'react';
 import { /* BrowserRouter as Router, Route, Switch, Redirect*/ Link } from "react-router-dom";
-import { Form, Header, Container, Button, Grid, Divider, Label } from 'semantic-ui-react';
+import { Form, Header, Container, Button, Grid, Divider, Label, Image, Segment } from 'semantic-ui-react';
+import Popup from "reactjs-popup";
+import "./LoginForm.css";
 
 const LoginForm = props => {
   return (
     <div id="loginForm">
-      <Container>
-        <Header as="h2" style={{color: props.color1, marginTop: 30}}>Login</Header>
-        <Form>
-          <Form.Group widths="equal">
+      <Container fluid>
+        <Grid columns={2} stackable>
+          <Grid.Column>
+            <Image src="/images/working/loginImage.jpg" style={{minWidth: "500px", height:"100%"}} />
+          </Grid.Column>
+          <Grid.Column>
+            <Container textAlign="center" text>
+              <Segment style={{marginTop: "40vh", backgroundColor: props.color5}} raised>
+                <Form>
+                  <Form.Field  onChange={props.handleFormChange} >
+                    <br></br>
+                    <label style={{color: props.color1, fontSize: 15}}>Email</label>
+                    <input style={{color: props.color5, backgroundColor: props.color1, maxWidth: 300}} name="email" placeholder="email@server.com" />
+                      {props.loginError ?
+                        <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
+                      : ""}
+                      {props.userExistError ?
+                        <Label basic color="red" pointing="above" >{`${props.userExistError}`}</Label>
+                      : ""}
+                  </Form.Field>
 
-            <Form.Field  onChange={props.handleFormChange}>
-              <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Email</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="email" placeholder="email@server.com" />
-                {props.loginError ?
-                  <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
-                : ""}
-                {props.userExistError ?
-                  <Label basic color="red" pointing="above" >{`${props.userExistError}`}</Label>
-                : ""}
-            </Form.Field>
+                  <Form.Field  onChange={props.handleFormChange}>
+                    <br></br>
+                    <label style={{color: props.color1, fontSize: 15}}>Password</label>
+                    <input style={{color: props.color5, backgroundColor: props.color1, maxWidth: 300}} name="password" placeholder="password" />
+                      {props.loginError ?
+                        <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
+                      : ""}
+                      {props.passwordError ?
+                        <Label basic color="red" pointing="above" >{`${props.passwordError}`}</Label>
+                      : ""}
+                  </Form.Field>
+                  <Form.Button onClick={props.handleLoginSubmit} style={{color: props.color5, backgroundColor: props.color1, width: 155, marginTop: 20}}>Login</Form.Button>
 
-            <Form.Field  onChange={props.handleFormChange}>
-              <br></br>
-              <label style={{color: props.color1, fontSize: 15}}>Password</label>
-              <input style={{color: props.color5, backgroundColor: props.color1}} name="password" placeholder="password" />
-                {props.loginError ?
-                  <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
-                : ""}
-                {props.passwordError ?
-                  <Label basic color="red" pointing="above" >{`${props.passwordError}`}</Label>
-                : ""}
-            </Form.Field>
-          </Form.Group>
-          <Form.Button onClick={props.handleLoginSubmit} style={{color: props.color5, backgroundColor: props.color1}}>Login</Form.Button>
-        </Form>
+                </Form>
+                <Popup modal trigger={<Form.Button style={{color: props.color5, backgroundColor: props.color1, marginTop: 10, width: 155}}>Forgot Password?</Form.Button>} position="right center">
+                  {props.recoverEmailSuccess ? 
+                    <Header as="h3" style={{color: props.color1, padding: 50}}>Please check your email to create new password</Header>
+                  :
+                    <Form style={{backgroundColor: props.color5}}>
+                      <Form.Field  onChange={props.handleFormChange} >
+                        <br></br>
+                        <label style={{color: props.color1, fontSize: 15}}>Enter Email Address</label>
+                        <input style={{color: props.color5, backgroundColor: props.color1, maxWidth: 300}} name="recoverEmail" placeholder="email@server.com" />
+                          {props.loginError ?
+                            <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
+                          : ""}
+                          {props.userExistError ?
+                            <Label basic color="red" pointing="above" >{`${props.userExistError}`}</Label>
+                          : ""}
+                      </Form.Field>
+                      <Form.Button onClick={props.handleForgotPassword} style={{color: props.color5, backgroundColor: props.color1}}>Send Email</Form.Button> 
+                    </Form>                    
+                  }
+                </Popup>
+                <Button onClick={props.handleCreateNewUser} style={{color: props.color5, backgroundColor: props.color1, marginTop: 10, width: 155}}>Create New User</Button>
+              </Segment>
+            </Container>
+          </Grid.Column>
 
-        <Divider horizontal style={{color: props.color1}}><Header as="h3" style={{color: props.color1}}>OR</Header></Divider>
-        <Header as="h2" style={{color: props.color1, marginTop: 30}}>Create New User</Header>
-        <Form>
+        </Grid>
+        {/* this is where the create user stuff was removed and placed at the bottom of this page */}
+      </Container>
+
+    </div>    
+  );
+}
+
+export default LoginForm
+
+
+        {/* <Divider horizontal style={{color: props.color1}}><Header as="h3" style={{color: props.color1}}>OR</Header></Divider>
+        <Header as="h2" style={{color: props.color1, marginTop: 30}}>Create New User</Header> */}
+        {/* <Form>
           <Form.Group widths="equal">
 
             <Form.Field  onChange={props.handleFormChange}>
@@ -127,10 +168,4 @@ const LoginForm = props => {
             </Grid.Row>
           </Grid>
           <Form.Button onClick={props.handleCreateUser} style={{color: props.color5, backgroundColor: props.color1, marginTop: 20}}>Create User</Form.Button>
-        </Form>
-      </Container>
-    </div>    
-  );
-}
-
-export default LoginForm
+        </Form> */}

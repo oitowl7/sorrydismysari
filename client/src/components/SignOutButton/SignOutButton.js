@@ -34,7 +34,7 @@ class SignOutButton extends React.Component {
 
   render() {
     return(
-      <Button onClick={this.signOut} style={{color: this.props.color3, backgroundColor: this.props.color1,}}>Sign Out</Button>
+      <Button onClick={this.signOut} style={{color: this.props.color3, backgroundColor: this.props.color1, position: "absolute", right: "30px", top: "3px"}}>Sign Out</Button>
     )
   }
 }
