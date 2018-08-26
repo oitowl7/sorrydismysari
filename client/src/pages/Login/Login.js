@@ -187,13 +187,13 @@ class Login extends React.Component {
           recoverEmailSuccess={this.state.recoverEmailSuccess}
           handleCreateNewUser={this.handleCreateNewUser}
         />
-        <Footer 
+        {/* <Footer 
           color1={this.props.color1}
           color2={this.props.color2}
           color3={this.props.color3}
           color4={this.props.color4}
           color5={this.props.color5}
-        />
+        /> */}
       </div>
     )
   }

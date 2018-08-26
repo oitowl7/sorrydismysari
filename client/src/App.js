@@ -9,6 +9,7 @@ import Inventory from "./pages/Inventory/Inventory"
 import firebaseFunctions from './utils/firebase.js'
 import Loading from "./components/Loading/Loading";
 import Animate from "react-smooth";
+import CreateUser from "./pages/CreateUser/CreateUser";
 
 
 
@@ -146,6 +147,20 @@ class App extends React.Component {
                   render={(routeProps) => {
                     return (
                       <Login
+                        color1={this.state.color1}
+                        color2={this.state.color2}
+                        color3={this.state.color3}
+                        color4={this.state.color4}
+                        color5={this.state.color5}
+                        userLoggedInSuccessfully={this.userLoggedInSuccessfully}
+                      />
+                    )
+                  }} 
+                />
+                <Route path="/createuser" 
+                  render={(routeProps) => {
+                    return (
+                      <CreateUser
                         color1={this.state.color1}
                         color2={this.state.color2}
                         color3={this.state.color3}
