@@ -2,7 +2,9 @@ import React from "react";
 import { /* BrowserRouter as Router, Route, Switch, Redirect,*/ Link  } from "react-router-dom";
 import { Form, Container, Header, Image, Segment, Label, Menu } from 'semantic-ui-react';
 import API from "../../utils/API.js";
-import "./CreateUser.css"
+import "./CreateUser.css";
+import firebaseFunctions from '../../utils/firebase.js';
+import firebase from 'firebase';
 
 
 class CreateUser extends React.Component {
@@ -15,8 +17,10 @@ class CreateUser extends React.Component {
 
   }
   
-  componentDidUpdate() {
-
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.userLoggedInSuccessfully){
+      this.props.userLoggedInSuccessfully();
+    }
   }
 
   //standard form change function
@@ -33,11 +37,86 @@ class CreateUser extends React.Component {
   handleCreateUserCreateHouseSubmit = event => {
     event.preventDefault();
     console.log("we will create user");
+    const error = this.createHouseValidation();
+    if (error) {
+      return;
+    }
+    else{
+      // check if the housename is already taken
+      firebaseFunctions.getHouseholdWhere(this.state.createHouseName.toLowerCase()).then(snapshot => {
+        console.log(snapshot);
+        // snapshot.docs.forEach(doc => {
+        //   console.log('data', doc.data());
+        //   if(doc.data()){
+        //   }
+        // })
+        if(snapshot.docs[0]){
+              this.setState({createHouseNameError: "This household name already exists"})
+              return;
+        } else {
+          firebaseFunctions.createNewUser(this.state.email, this.state.userPassword).catch(err1 => console.log('err1', err1));
+          const houseData = {
+            name: this.state.createHouseName,
+            password: this.state.createHousePassword
+          }
+          const db = firebase.firestore();
+          db.collection('households').add(houseData).then(snapshot2 => {
+            console.log('create household', snapshot2);
+            const householdID = snapshot2.id;
+            const userData = {
+              email: this.state.email,
+              households: [householdID]
+            }
+            db.collection('users').add(userData).then(snapshot3 => {
+              console.log('userdb ' , snapshot3);
+              db.collection('households').doc(householdID).update({members: [snapshot3.id]}).then(snapshot4 => {
+                console.log('household update', snapshot4);
+                // this.props.userLoggedInSuccessfully();
+                // this.setState({userLoggedInSuccessfully: true})
+              }).catch(err4 => console.log('err4', err4));
+            }).catch(err3 => console.log('err 3', err3))
+          }).catch(err2 => console.log('err 2', err2))
+        }
+      }).catch(err => console.log('err', err));
+
+    }
   }
 
   handleCreateUserJoinHouseSubmit = event => {
     event.preventDefault();
     console.log("we will create user");
+    const error = this.joinHouseValidation();
+    if (error) {
+      return;
+    } else {
+      console.log("We really gonna do shit here");
+    }
+  }
+
+  // front end validation to check matching passwords, formatting issues etc before making call to firebase
+  createHouseValidation = () => {
+    let error = false;
+    this.setState({emailError: null, userPasswordConfirmError: null, userPasswordError: null, createHousePasswordError: null, createHousePasswordConfirmError: null, createHouseNameError: null})
+    if(!this.state.email){
+      this.setState({emailError: "Please enter an email address"});
+      error = true;
+    } else if (!this.state.email.split("@")[1] || !this.state.email.split(".")[1]){
+      this.setState({emailError: "Not a valid email address"});
+      error = true;
+    }
+    if(this.state.userPassword.length < 6){
+      this.setState({userPasswordError: "Password must be at least 6 characters"});
+      error = true;
+    }
+    if(this.state.userPassword !== this.state.userPasswordConfirm){
+      this.setState({userPasswordConfirmError: "Passwords don't match", userPasswordError: "Passwords don't match"});
+      error = true;
+    }
+    if(this.state.createHousePassword !== this.state.createHousePasswordConfirm){
+      this.setState({createHousePasswordError: "Passwords do not match", createHousePasswordConfirmError: "Passwords do not match"})
+      error = true;
+    }
+    return error;
   }
 
   render() {
@@ -54,6 +133,7 @@ class CreateUser extends React.Component {
                 <br/>
                 <label style={{color: this.props.color1, fontSize: 15}}>Email</label>
                 <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} name="email" placeholder="email@server.com" />
+                <br/> 
                   {this.state.emailError ?
                     <Label basic color="red" pointing="above" >{`${this.state.emailError}`}</Label>
                   : ""}
@@ -63,6 +143,7 @@ class CreateUser extends React.Component {
                 <br/>
                 <label style={{color: this.props.color1, fontSize: 15}}>Password</label>
                 <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} type="password" name="userPassword" placeholder="password" />
+                <br/>
                   {this.state.userPasswordError ?
                     <Label basic color="red" pointing="above" >{`${this.state.userPasswordError}`}</Label>
                   : ""}
@@ -72,6 +153,7 @@ class CreateUser extends React.Component {
                 <br/>
                 <label style={{color: this.props.color1, fontSize: 15}}>Confirm Password</label>
                 <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} type="password" name="userPasswordConfirm" placeholder="password" />
+                <br/>
                   {this.state.userPasswordConfirmError ?
                     <Label basic color="red" pointing="above" >{`${this.state.userPasswordConfirmError}`}</Label>
                   : ""}
@@ -93,6 +175,7 @@ class CreateUser extends React.Component {
                   <br/>
                   <label style={{color: this.props.color1, fontSize: 15}}>House Name</label>
                   <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} name="createHouseName" placeholder="Islam Household" />
+                  <br/>
                     {this.state.createHouseNameError ?
                       <Label basic color="red" pointing="above" >{`${this.state.createHouseNameError}`}</Label>
                     : ""}
@@ -102,6 +185,7 @@ class CreateUser extends React.Component {
                   <br/>
                   <label style={{color: this.props.color1, fontSize: 15}}>Password</label>
                   <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} type="password" name="createHousePassword" placeholder="password" />
+                  <br/>
                     {this.state.createHousePasswordError ?
                       <Label basic color="red" pointing="above" >{`${this.state.createHousePasswordError}`}</Label>
                     : ""}
@@ -111,6 +195,7 @@ class CreateUser extends React.Component {
                   <br/>
                   <label style={{color: this.props.color1, fontSize: 15}}>Confirm Password</label>
                   <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} type="password" name="createHousePasswordConfirm" placeholder="password" />
+                  <br/>
                     {this.state.createHousePasswordConfirmError ?
                       <Label basic color="red" pointing="above" >{`${this.state.createHousePasswordConfirmError}`}</Label>
                     : ""}
@@ -126,6 +211,7 @@ class CreateUser extends React.Component {
                   <br/>
                   <label style={{color: this.props.color1, fontSize: 15}}>House Name</label>
                   <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} name="existingHouseName" placeholder="Islam Household" />
+                  <br/>
                     {this.state.existingHouseNameError ?
                       <Label basic color="red" pointing="above" >{`${this.state.existingHouseNameError}`}</Label>
                     : ""}
@@ -135,6 +221,7 @@ class CreateUser extends React.Component {
                   <br/>
                   <label style={{color: this.props.color1, fontSize: 15}}>Password</label>
                   <input style={{color: this.props.color5, backgroundColor: this.props.color1, maxWidth: 300, opacity: "1"}} type="password" name="joinHousePassword" placeholder="password" />
+                  <br/>
                     {this.state.joinHousePasswordError ?
                       <Label basic color="red" pointing="above" >{`${this.state.joinHousePasswordError}`}</Label>
                     : ""}

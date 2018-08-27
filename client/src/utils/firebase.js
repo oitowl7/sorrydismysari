@@ -33,8 +33,8 @@ export default {
   },
 
   //creates a new household
-  createNewHousehold: function(state) {
-    console.log("We are going to create this once i figure out what that user object looks like");
+  createNewHousehold: (household) => {
+    db.collection('households').doc().set(household)
   },
 
   // test function for collections
@@ -55,5 +55,17 @@ export default {
   sendNewPasswordEmail: (emailAddress) => {
     console.log("now this shit happened")
     auth.sendPasswordResetEmail(emailAddress);
+  },
+
+  //sends user email verification
+  verifyEmail: () => {
+    const user = firebase.auth().currentUser;
+
+    user.sendEmailVerification();
+  },
+
+  // creates the user within the database. DOES NOT STORE THEIR PASSWORDS
+  createUserDb: (user) => {
+
   }
 }
