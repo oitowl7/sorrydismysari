@@ -7,11 +7,12 @@ import "./LoginForm.css";
 const LoginForm = props => {
   return (
     <div id="loginForm" style={{height: "100vh", width: "100%", overflow: "hidden"}}>
-      <Image src="/images/working/loginImage.jpg" style={{maxHeight: "100vh", width: "100%", position:"absolute", top: 0, left: 0, opacity: "1", }} />
+    <Image src="/images/working/loginImage.jpg" style={{maxHeight: "100vh", minHeight: "900px", width: "100%", position:"fixed", top: 0, left: 0, opacity: "1", }} />
       {/* <Container textAlign="center" text> */}
       <div style={{display: "flex", justifyContent: "center", backgroundColor: "rgba(255, 255, 255, 0)", opacity: "1"}}>
 
         <Segment style={{marginTop: "20vh", backgroundColor: props.color5, opacity: "0.9", width: 400}} textAlign="center" raised>
+          <Header as="h1" style={{color: props.color1}}>Login</Header>
           <Form>
             <Form.Field  onChange={props.handleFormChange} >
               <br></br>
@@ -28,7 +29,7 @@ const LoginForm = props => {
             <Form.Field  onChange={props.handleFormChange}>
               <br></br>
               <label style={{color: props.color1, fontSize: 15}}>Password</label>
-              <input style={{color: props.color5, backgroundColor: props.color1, maxWidth: 300, opacity: "1"}} name="password" placeholder="password" />
+              <input style={{color: props.color5, backgroundColor: props.color1, maxWidth: 300, opacity: "1"}} type="password" name="password" placeholder="password" />
                 {props.loginError ?
                   <Label basic color="red" pointing="above" >{`${props.loginError}`}</Label>
                 : ""}

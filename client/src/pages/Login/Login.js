@@ -24,26 +24,6 @@ class Login extends React.Component {
   componentDidUpdate(prevProps, prevState) {
   }
 
-  //runs the front end verification. if it passes with a value of "false" it will try to create a new user. This will be handled by a new page
-  // handleCreateUser = event => {
-  //   event.preventDefault();
-
-  //   const verification = this.verification();
-  //   if (verification) {
-  //     return;
-  //   }
-
-  //   if (this.state.newHouseName){
-  //     firebaseFunctions.createNewUser(this.state.newEmail, this.state.newPassword)
-  //     .then(snapshot => {
-  //       console.log(snapshot.user);
-  //       this.props.userLoggedInSuccessfully();
-  //     }).catch(err => {
-  //       console.log(err);
-  //     })
-
-  //   }
-  // }
 
   verification = () => {
     let problem;

@@ -21,7 +21,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return(
       <div style={{backgroundColor: this.props.color5}}>
         <Navbar

@@ -33,7 +33,17 @@ class App extends React.Component {
       this.setState({loggedIn: false});
     } else {
       this.setState({loggedIn: true});
-      // window.location.href = "/";      
+      const userAuth = firebaseFunctions.getUserInfo();
+      const db = firebase.firestore();
+      //get current user object
+      db.collection('users').where("email", "==", userAuth.email).get().then(snapshot => {
+        let data;
+        snapshot.docs.forEach(doc => {
+          data = doc.data();
+          this.setState({userObject: data});
+        })
+      })
+      // window.location.href = "/";
     }
   }
 
@@ -44,7 +54,7 @@ class App extends React.Component {
     //runs the checkLogin() function after 2 seconds. The app needs a few seconds to mount before this request can be made and get a true response.
     setTimeout(() => {
       this.checkLogin();
-    }, 2000)
+    }, 1000)
     //shows the loading screen for 4 seconds
     setTimeout(() => { 
       this.setState({loggedInCheck: true})

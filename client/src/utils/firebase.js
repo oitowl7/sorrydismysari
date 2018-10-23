@@ -32,6 +32,17 @@ export default {
     return firebase.auth().currentUser;
   },
 
+  //get current user object
+  getUserObject: (email) => {
+    db.collection('users').where("email", "==", email).get().then(snapshot => {
+      let data;
+      snapshot.docs.forEach(doc => {
+        data = doc.data();
+        console.log('data', data)
+      })
+    })
+  },
+
   //creates a new household
   createNewHousehold: (household) => {
     db.collection('households').doc().set(household)
@@ -45,6 +56,10 @@ export default {
         console.log('doc', doc);
       })
     })
+  },
+
+  checkUserExists : (email) => {
+    return db.collection('users').where("email", "==", email).get();
   },
 
   signUserOut: () => {
